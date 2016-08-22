@@ -11,16 +11,65 @@ import Photos
 
 
 class PhotoCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+    @IBOutlet var imageCollectionView: UICollectionView!
+    
+    var imageArray = [UIImage]()
+    var fullQualityImageArray = [UIImage]()
+    var hasFirstAppeared = false
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewDidAppear(true)
+        if hasFirstAppeared == true {
+            //fetchPhotos()
+            //print("fetching photos")
+        }
+        hasFirstAppeared = true
+        fullQualityImageArray.removeAll()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchPhotos()
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(didBecomeActive), name: UIApplicationDidBecomeActiveNotification, object: nil)
+
+        //NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(didBecomeActive), name: UIApplicationDidBecomeActiveNotification, object: nil)
     }
     
-    var imageArray = [UIImage]()
-    var oldImageArray = [UIImage]()
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "toPhotoViewController" {
+            if let selectedIndexPath = imageCollectionView.indexPathsForSelectedItems()?.first {
+                
+                let imgManager = PHImageManager.defaultManager()
+                
+                let requestOptions = PHImageRequestOptions()
+                requestOptions.networkAccessAllowed = true
+                
+                requestOptions.synchronous = true
+                requestOptions.deliveryMode = .Opportunistic
+                
+                let fetchOptions = PHFetchOptions()
+                fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)] // most recent image will be displayed first
+                let tappedImage = imageArray.indexOf(imageArray[selectedIndexPath.row])
+                if let fetchResult: PHFetchResult = PHAsset.fetchAssetsWithMediaType(.Image, options: fetchOptions) {
+                    if fetchResult.count > 0 {
+                       
+                            imgManager.requestImageForAsset(fetchResult.objectAtIndex(tappedImage!) as! PHAsset, targetSize: PHImageManagerMaximumSize, contentMode: .AspectFill, options: requestOptions, resultHandler: {
+                                image, error in
+                                
+                                self.fullQualityImageArray.append(image!)
+                            })
+                        
+                    }
+                }
+                
+                
+                let photo = fullQualityImageArray.first
+                
+                let destinationVC = segue.destinationViewController as! PhotoViewController
+                destinationVC.photo = photo
+                //imageArray.removeAll()
+            }
+        }
+    }
     
     func fetchPhotos() {
         let imgManager = PHImageManager.defaultManager()
@@ -33,7 +82,6 @@ class PhotoCollectionViewController: UICollectionViewController, UICollectionVie
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)] // most recent image will be displayed first
         
         if let fetchResult: PHFetchResult = PHAsset.fetchAssetsWithMediaType(.Image, options: fetchOptions) {
-            oldImageArray = imageArray
             imageArray.removeAll()
             if fetchResult.count > 0 {
                 for i in 0..<fetchResult.count{
@@ -76,11 +124,11 @@ class PhotoCollectionViewController: UICollectionViewController, UICollectionVie
         }
     }
     
-    func didBecomeActive() {
-        fetchPhotos()
-        self.collectionView?.reloadData()
-        print("did become active")
-    }
+//    func didBecomeActive() {
+//        fetchPhotos()
+//        self.collectionView?.reloadData()
+//        print("did become active")
+//    }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return imageArray.count

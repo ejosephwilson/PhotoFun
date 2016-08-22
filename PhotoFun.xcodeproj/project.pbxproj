@@ -12,6 +12,7 @@
 		BCE4C0981D674CF800A9F754 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCE4C0961D674CF800A9F754 /* Main.storyboard */; };
 		BCE4C09A1D674CF800A9F754 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCE4C0991D674CF800A9F754 /* Assets.xcassets */; };
 		BCE4C09D1D674CF800A9F754 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCE4C09B1D674CF800A9F754 /* LaunchScreen.storyboard */; };
+		BCE4C0A51D675B1600A9F754 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE4C0A41D675B1600A9F754 /* PhotoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		BCE4C0991D674CF800A9F754 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BCE4C09C1D674CF800A9F754 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BCE4C09E1D674CF800A9F754 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BCE4C0A41D675B1600A9F754 /* PhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,8 +57,9 @@
 			isa = PBXGroup;
 			children = (
 				BCE4C0921D674CF800A9F754 /* AppDelegate.swift */,
-				BCE4C0941D674CF800A9F754 /* PhotoCollectionViewController.swift */,
 				BCE4C0961D674CF800A9F754 /* Main.storyboard */,
+				BCE4C0941D674CF800A9F754 /* PhotoCollectionViewController.swift */,
+				BCE4C0A41D675B1600A9F754 /* PhotoViewController.swift */,
 				BCE4C0991D674CF800A9F754 /* Assets.xcassets */,
 				BCE4C09B1D674CF800A9F754 /* LaunchScreen.storyboard */,
 				BCE4C09E1D674CF800A9F754 /* Info.plist */,
@@ -136,6 +139,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCE4C0A51D675B1600A9F754 /* PhotoViewController.swift in Sources */,
 				BCE4C0951D674CF800A9F754 /* PhotoCollectionViewController.swift in Sources */,
 				BCE4C0931D674CF800A9F754 /* AppDelegate.swift in Sources */,
 			);
@@ -295,6 +299,7 @@
 				BCE4C0A31D674CF800A9F754 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
